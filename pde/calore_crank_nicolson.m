@@ -1,3 +1,4 @@
+%%CRANK-NICKOLSON
 
 %% ci sono due metodi, uno in cui risolviamo il sistema direttamente dalla
 %%matrice non semplificata, un altro in cui usiamo l equazione iterativa.
@@ -42,17 +43,16 @@ h = ones(N-2,1);
 
 
 
-T(51) = T(51) + deltaT;
-tend = 1e-3;
+T(51) = T(51) + deltaT; %picco di altezza detaT al centro della sbarretta lunga L
+tend = 1e-2;
 
 
 while(t< tend)
-    
     b(2:N-3) = T(2:N-3) + (2/eta -2)*T(3:N-2)+T(4:N-1);
     b(1) = T(1) + T0 + (2/eta -2) * T(2) + T(3);
     b(N-2) = T0 + T(N) + (2/eta -2) * T(N-1) + T(N-2);
     T_l = linsolve(matrix,b);
-    T = [T0; T_l; T0];
+    T = [T0; T_l; T0]; %%modo furbo per appendere vettori
     plot(x,T,"g");
     drawnow;
     t = t + dt;
@@ -60,6 +60,7 @@ end
 
 
 %{
+QUESTO NON VA 
 
 while(t < tend)
     h(1) = a/d;
